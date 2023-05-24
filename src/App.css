@@ -1,5 +1,12 @@
+@font-face{
+  font-family: "CatFont";
+  src:url("../src/fonts/MeowsNepilRegular-Yzvwa.ttf")
+}
+
+
 .App {
   text-align: center;
+  font-family: "cat";
 }
 
 .App-logo {
@@ -12,6 +19,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 
 .App-header {
   background-color: #282c34;
