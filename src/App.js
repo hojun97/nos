@@ -2,23 +2,36 @@ import styled from "styled-components";
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { ReactComponent as Spinner } from "../src/catLoading.svg";
-import  HappyCat  from "../src/happyCat.gif";
+import HappyCat from "../src/happyCat.gif";
+import ReactGA from "react-ga4";
+import { useLocation } from "react-router-dom";
 function App() {
   const [loading, setLoading] = useState(false);
-  const [fadeOut, setFadeOut] = useState("");
+
+  const location = useLocation();
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(true);
     }, 2000);
-  }, []);
+
+    ReactGA.set({ page: location.pathname });
+    ReactGA.send("pageview");
+  }, [location]);
 
   return (
     <Div>
       {loading ? (
         <Bottom className="fade-in">
           <div className="speech-bubble">Click Me</div>
-        <img src={HappyCat} style={{width:"300px"}} onClick={()=>window.location.href="https://m.blog.naver.com/thstlgus0601"}/>
-      {/* <Blog href="https://m.blog.naver.com/thstlgus0601">Blog</Blog> */}
+          <img
+            src={HappyCat}
+            style={{ width: "300px" }}
+            onClick={() =>
+              (window.location.href = "https://m.blog.naver.com/thstlgus0601")
+            }
+          />
+          {/* <Blog href="https://m.blog.naver.com/thstlgus0601">Blog</Blog> */}
           {/* <PlayList href="https://soundcloud.com/user-269111903/sets/ptubm01htmq2?ref=clipboard&p=i&c=1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
             Playlist
           </PlayList> */}
@@ -31,7 +44,6 @@ function App() {
     </Div>
   );
 }
-
 
 const Div = styled.div`
   width: 100%;
@@ -85,30 +97,31 @@ const SpinnerWrap = styled.div`
 `;
 
 const Bottom = styled.div`
-  width:100%;
+  width: 100%;
   display: flex;
-  flex-direction:column;
-  align-items:center;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 
   .speech-bubble {
-    width:200px;
-    height:80px;
-    display:flex;
-    align-items:center;
+    width: 200px;
+    height: 80px;
+    display: flex;
+    align-items: center;
     justify-content: center;
     position: relative;
     background: #000000;
-    border-radius: .4em;
-    color:white;
+    border-radius: 0.4em;
+    color: white;
     font-family: "CatFont";
-    font-size:24px;
-    animation: motion 0.3s linear 0s infinite alternate; margin-top: 0;
+    font-size: 24px;
+    animation: motion 0.3s linear 0s infinite alternate;
+    margin-top: 0;
     opacity: 0.85;
   }
-  
+
   .speech-bubble:after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -119,12 +132,15 @@ const Bottom = styled.div`
     border-bottom: 0;
     margin-left: -21px;
     margin-bottom: -19px;
-
   }
 
   @keyframes motion {
-    0% {margin-top: 0px;}
-    100% {margin-top: 10px;}
+    0% {
+      margin-top: 0px;
+    }
+    100% {
+      margin-top: 10px;
+    }
   }
 `;
 
