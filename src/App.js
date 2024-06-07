@@ -8,16 +8,13 @@ import { useLocation } from "react-router-dom";
 function App() {
   const [loading, setLoading] = useState(false);
 
-  const location = useLocation();
-
   useEffect(() => {
     setTimeout(() => {
       setLoading(true);
     }, 2000);
 
-    ReactGA.set({ page: location.pathname });
     ReactGA.send("pageview");
-  }, [location]);
+  }, []);
 
   return (
     <Div>
