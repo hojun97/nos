@@ -5,8 +5,10 @@ import { ReactComponent as Spinner } from "../src/catLoading.svg";
 import HappyCat from "../src/happyCat.gif";
 import ReactGA from "react-ga4";
 import { useLocation } from "react-router-dom";
+import Roullet from "./Roullet";
 function App() {
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -18,26 +20,30 @@ function App() {
 
   return (
     <Div>
-      {loading ? (
-        <Bottom className="fade-in">
-          <div className="speech-bubble">Click Me</div>
-          <img
-            src={HappyCat}
-            style={{ width: "300px" }}
-            onClick={() =>
-              (window.location.href = "https://m.blog.naver.com/thstlgus0601")
-            }
-          />
-          {/* <Blog href="https://m.blog.naver.com/thstlgus0601">Blog</Blog> */}
-          {/* <PlayList href="https://soundcloud.com/user-269111903/sets/ptubm01htmq2?ref=clipboard&p=i&c=1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
-            Playlist
-          </PlayList> */}
-        </Bottom>
-      ) : (
-        <SpinnerWrap className="fade-out">
-          <Spinner />
-        </SpinnerWrap>
-      )}
+      <>
+        {isOpen ? (
+          <Roullet />
+        ) : (
+          <>
+            {loading ? (
+              <Bottom className="fade-in">
+                <div className="speech-bubble">Click Me</div>
+                <img src={HappyCat} style={{ width: "300px" }} onClick={() => (window.location.href = "https://m.blog.naver.com/thstlgus0601")} />
+                {/* <Blog href="https://m.blog.naver.com/thstlgus0601">Blog</Blog> */}
+                {/* <PlayList href="https://soundcloud.com/user-269111903/sets/ptubm01htmq2?ref=clipboard&p=i&c=1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
+      Playlist
+    </PlayList> */}
+              </Bottom>
+            ) : (
+              <SpinnerWrap className="fade-out">
+                <Spinner />
+              </SpinnerWrap>
+            )}
+
+            <button onClick={() => setIsOpen(true)} style={{ width: "100px", height: "100px", position: "absolute", top: "0px", left: "0px", border: "none", opacity: "0" }}></button>
+          </>
+        )}
+      </>
     </Div>
   );
 }
